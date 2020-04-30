@@ -68,7 +68,7 @@ Status insert_at(List_ptr list, int value, int position) {
   return status;
 }
 
-Status is_in_list(List_ptr list,int value) {
+Status is_value_in_list(List_ptr list,int value) {
   Status status = Failure;
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
@@ -85,12 +85,9 @@ Status is_in_list(List_ptr list,int value) {
 Status add_unique(List_ptr list, int value){
   Status status = Failure;
   Node_ptr node;
-  if (is_in_list(list, value) == Failure)
+  if (!is_value_in_list(list, value))
   {
-    node = create_node(value);
-    list->last->next = node;
-    list->last = node;
-    list->count++;
+    add_to_end(list, value);
     status = Success;
   }
   return status;

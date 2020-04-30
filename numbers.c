@@ -30,27 +30,42 @@ void ask_instruction(char *instruction)
   scanf("%c", &temp); //for clearing the buffer value of "\n"
 }
 
+void ask_number(char *question,int *number){
+  char temp;
+  print(question);
+  scanf("%d", number);
+  scanf("%c", &temp);
+}
+
 void perform_instruction(List_ptr list,char instruction)
 {
+  int number_1;
+  int number_2;
   switch (instruction)
   {
   case 'a':
-    add_to_end(list, 5);
+    ask_number("\nEnter number :\n", &number_1);
+    add_to_end(list, number_1);
     break;
 
   case 'b':
-    add_to_start(list, 5);
+    ask_number("\nEnter number :\n", &number_1);
+    add_to_start(list, number_1);
     break;
 
   case 'c':
-    insert_at(list, 5, 3);
+    ask_number("\nEnter number :\n", &number_1);
+    ask_number("\nEnter position :\n", &number_2);
+    insert_at(list, number_1, number_2);
     break;
 
   case 'd':
-    add_unique(list, 5);
+    ask_number("\nEnter number :\n", &number_1);
+    add_unique(list, number_1);
     break;
     
   case 'l':
+    print_empty_line;
     display(list);
     break;
 
