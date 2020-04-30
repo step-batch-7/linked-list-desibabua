@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "list.h"
 
+void clear_node(Node_ptr node){
+  free(node);
+}
+
 Node_ptr create_node(int value) {
   Node_ptr node = malloc(sizeof(Node));
   node->value = value;
@@ -88,6 +92,20 @@ Status add_unique(List_ptr list, int value){
   if (!is_value_in_list(list, value))
   {
     add_to_end(list, value);
+    status = Success;
+  }
+  return status;
+}
+
+Status remove_from_start(List_ptr list) {
+  Status status = Failure;
+  if(list->head != NULL)
+  {
+    Node_ptr node_to_remove = list->head;
+    list->head = list->head->next;
+    clear_node(node_to_remove);
+    
+    list->count--;
     status = Success;
   }
   return status;

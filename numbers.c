@@ -44,31 +44,34 @@ void perform_instruction(List_ptr list,char instruction)
   switch (instruction)
   {
   case 'a':
-    ask_number("\nEnter number :\n", &number_1);
+    ask_number("\nEnter number :", &number_1);
     add_to_end(list, number_1);
     break;
 
   case 'b':
-    ask_number("\nEnter number :\n", &number_1);
+    ask_number("\nEnter number :", &number_1);
     add_to_start(list, number_1);
     break;
 
   case 'c':
-    ask_number("\nEnter number :\n", &number_1);
-    ask_number("\nEnter position :\n", &number_2);
+    ask_number("\nEnter number :", &number_1);
+    ask_number("\nEnter position :", &number_2);
     insert_at(list, number_1, number_2);
     break;
 
   case 'd':
-    ask_number("\nEnter number :\n", &number_1);
+    ask_number("\nEnter number :", &number_1);
     add_unique(list, number_1);
+    break;
+
+  case 'e':
+    remove_from_start(list);
     break;
     
   case 'l':
     print_empty_line;
     display(list);
     break;
-
   }
 }
 
