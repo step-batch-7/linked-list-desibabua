@@ -201,6 +201,27 @@ Status remove_all_occurrences(List_ptr list, int value){
   return status;
 }
 
+Status clear_list(List_ptr list)
+{
+  Status status = Failure;
+  Node_ptr p_walk = list->head;
+  Node_ptr node_to_remove;
+
+  while (p_walk != NULL)
+  {
+    node_to_remove = p_walk;
+    p_walk = p_walk->next;
+    clear_node(node_to_remove);
+  }
+  
+  list->head = NULL;
+  list->last = NULL;
+  list->count = 0;
+  status = Success;
+
+  return status;
+}
+
 void display(List_ptr list) {
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)

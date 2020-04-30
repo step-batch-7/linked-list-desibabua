@@ -87,6 +87,10 @@ void perform_instruction(List_ptr list,char instruction)
     remove_all_occurrences(list, number);
     break;
 
+  case 'j':
+    clear_list(list);
+    break;
+
   case 'l':
     print_empty_line;
     display(list);
