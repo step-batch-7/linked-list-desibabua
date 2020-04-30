@@ -4,6 +4,16 @@
 #define print(string) printf("%s\n",string)
 #define print_empty_line printf("\n")
 
+void print_status(Status status){
+  if(status){
+    print("success");
+  } else
+  {
+    print("failed");
+  }
+  print_empty_line;
+}
+
 void print_main_menu(void)
 {
   print("(a) add a number to the end of the list");
@@ -35,72 +45,77 @@ void ask_number(char *question,int *number)
   char temp;
   print(question);
   scanf("%d", number);
-  scanf("%c", &temp);
+  scanf("%c", &temp); //for clearing the buffer value of "\n"
 }
 
 void perform_instruction(List_ptr list,char instruction)
 {
   int number;
   int position;
+  Status status = Failure;
+
   switch (instruction)
   {
   case 'a':
     ask_number("\nEnter number :", &number);
-    add_to_end(list, number);
+    status = add_to_end(list, number);
     break;
 
   case 'b':
     ask_number("\nEnter number :", &number);
-    add_to_start(list, number);
+    status = add_to_start(list, number);
     break;
 
   case 'c':
     ask_number("\nEnter number :", &number);
     ask_number("\nEnter position :", &position);
-    insert_at(list, number, position);
+    status = insert_at(list, number, position);
     break;
 
   case 'd':
     ask_number("\nEnter number :", &number);
-    add_unique(list, number);
+    status = add_unique(list, number);
     break;
 
   case 'e':
-    remove_from_start(list);
+    status = remove_from_start(list);
     break;
 
   case 'f':
-    remove_from_end(list);
+    status = remove_from_end(list);
     break;
 
   case 'g':
     ask_number("\nEnter position :", &position);
-    remove_at(list, position);
+    status = remove_at(list, position);
     break;
 
   case 'h':
     ask_number("\nEnter number :", &number);
-    remove_first_occurrence(list, number);
+    status = remove_first_occurrence(list, number);
     break;
 
   case 'i':
     ask_number("\nEnter number :", &number);
-    remove_all_occurrences(list, number);
+    status = remove_all_occurrences(list, number);
     break;
 
   case 'j':
-    clear_list(list);
+    status = clear_list(list);
     break;
 
   case 'k':
-    destroy_list(list);
+    ask_number("\nEnter number :", &number);
+    status = is_in_list(list, number);
     break;
 
   case 'l':
     print_empty_line;
     display(list);
+    status = Success;
     break;
   }
+  print_status(status);
 }
 
 int main(void)

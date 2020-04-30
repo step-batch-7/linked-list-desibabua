@@ -56,6 +56,17 @@ Status add_to_start(List_ptr list, int value)
 Status insert_at(List_ptr list, int value, int position) 
 {
   Status status = Failure;
+
+  if(position == 0){
+    status = add_to_start(list, value);
+    return status;
+  }
+
+  if(position == list->count-1){
+    status = add_to_end(list, value);
+    return status;
+  }
+
   int count = 1;
   Node_ptr node = create_node(value);
   Node_ptr p_walk = list->head;
@@ -74,7 +85,7 @@ Status insert_at(List_ptr list, int value, int position)
   return status;
 }
 
-Status is_value_in_list(List_ptr list,int value) 
+Status is_in_list(List_ptr list,int value) 
 {
   Status status = Failure;
   Node_ptr p_walk = list->head;
@@ -93,7 +104,7 @@ Status add_unique(List_ptr list, int value)
 {
   Status status = Failure;
   Node_ptr node;
-  if (!is_value_in_list(list, value))
+  if (!is_in_list(list, value))
   {
     status = add_to_end(list, value);
   }
@@ -118,16 +129,16 @@ Status remove_from_start(List_ptr list)
 Status remove_from_end(List_ptr list) 
 {
   Status status = Failure;
+  if(list->count == 1)
+  {
+    status = remove_from_start(list);
+    return status;
+  }
+
   int count = 1;
   Node_ptr p_walk = list->head;
   while(p_walk != NULL)
   {
-    if(list->count == 1)
-    {
-      status = remove_from_start(list);
-      break;
-    }
-
     if(count == (list->count-1))
     {
       Node_ptr node_to_remove = p_walk->next;
@@ -148,23 +159,22 @@ Status remove_from_end(List_ptr list)
 Status remove_at(List_ptr list, int position)
 {
   Status status = Failure;
+  if(position == 0)
+  {
+    status = remove_from_start(list);
+    return status;
+  }
+
+  if(position == (list->count-1))
+  {
+    status = remove_from_end(list);
+    return status;
+  }
+
   int count = 0;
   Node_ptr p_walk = list->head;
-
   while (p_walk != NULL)
   {
-    if(position == 0)
-    {
-      status = remove_from_start(list);
-      break;
-    }
-    
-    if(position == (list->count-1))
-    {
-      status = remove_from_end(list);
-      break;
-    }
-
     if(count == position-1)
     {
       Node_ptr node_to_remove = p_walk->next;
@@ -206,7 +216,7 @@ Status remove_all_occurrences(List_ptr list, int value)
 {
   Status status = Failure;
 
-  while (is_value_in_list(list,value))
+  while (is_in_list(list,value))
   {
     status = remove_first_occurrence(list, value);
   }
