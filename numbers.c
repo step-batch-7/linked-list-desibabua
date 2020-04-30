@@ -30,7 +30,8 @@ void ask_instruction(char *instruction)
   scanf("%c", &temp); //for clearing the buffer value of "\n"
 }
 
-void ask_number(char *question,int *number){
+void ask_number(char *question,int *number)
+{
   char temp;
   print(question);
   scanf("%d", number);
