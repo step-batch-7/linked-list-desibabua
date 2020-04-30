@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include "list.h"
 
-void clear_node(Node_ptr node){
-  free(node);
-}
-
 Node_ptr create_node(int value) {
   Node_ptr node = malloc(sizeof(Node));
   node->value = value;
@@ -104,7 +100,7 @@ Status remove_from_start(List_ptr list) {
     list->count--;
     list->head = list->count == 0 ? NULL : list->head->next;
 
-    clear_node(node_to_remove);
+    free(node_to_remove);
     status = Success;
   }
   return status;
@@ -128,7 +124,7 @@ Status remove_from_end(List_ptr list) {
       list->last = p_walk;
       list->count--;
 
-      clear_node(node_to_remove);
+      free(node_to_remove);
       status = Success;
     }
     p_walk = p_walk->next;
@@ -160,7 +156,7 @@ Status remove_at(List_ptr list, int position){
       p_walk->next = node_to_remove->next;
       list->count--;
 
-      clear_node(node_to_remove);
+      free(node_to_remove);
       status = Success;
       break;
     }
@@ -211,15 +207,20 @@ Status clear_list(List_ptr list)
   {
     node_to_remove = p_walk;
     p_walk = p_walk->next;
-    clear_node(node_to_remove);
+    free(node_to_remove);
   }
-  
+
   list->head = NULL;
   list->last = NULL;
   list->count = 0;
   status = Success;
 
   return status;
+}
+
+void destroy_list(List_ptr list){
+  clear_list(list);
+  free(list);
 }
 
 void display(List_ptr list) {

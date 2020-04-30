@@ -91,6 +91,10 @@ void perform_instruction(List_ptr list,char instruction)
     clear_list(list);
     break;
 
+  case 'k':
+    destroy_list(list);
+    break;
+
   case 'l':
     print_empty_line;
     display(list);
