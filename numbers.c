@@ -9,6 +9,7 @@ int main(void)
   add_to_start(list, 3);
   add_to_start(list, 2);
   insert_at(list, 4, 2);
+  add_unique(list, 8);
 
   display(list);
   return 0;
