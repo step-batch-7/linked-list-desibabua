@@ -28,6 +28,7 @@ Status add_to_end(List_ptr list, int value){
     list->last->next = node;
   }
   list->last = node;
+  list->count++;
   status = Success;
   return status;
 }
@@ -43,6 +44,7 @@ Status add_to_start(List_ptr list, int value){
     node->next = list->head;
   }
   list->head = node;
+  list->count++;
   status = Success;
   return status;
 }
@@ -57,6 +59,7 @@ Status insert_at(List_ptr list, int value, int position) {
     if(count == position){
       node->next = p_walk->next;
       p_walk->next = node;
+      list->count++;
       status = Success;
     }
     p_walk = p_walk->next;
@@ -87,6 +90,7 @@ Status add_unique(List_ptr list, int value){
     node = create_node(value);
     list->last->next = node;
     list->last = node;
+    list->count++;
     status = Success;
   }
   return status;
@@ -99,4 +103,5 @@ void display(List_ptr list) {
     printf("%d ", p_walk->value);
     p_walk = p_walk->next;
   }
+  printf("\ncount : %d\n\n",list->count);
 }
