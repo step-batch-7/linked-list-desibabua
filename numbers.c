@@ -39,35 +39,44 @@ void ask_number(char *question,int *number){
 
 void perform_instruction(List_ptr list,char instruction)
 {
-  int number_1;
-  int number_2;
+  int number;
+  int position;
   switch (instruction)
   {
   case 'a':
-    ask_number("\nEnter number :", &number_1);
-    add_to_end(list, number_1);
+    ask_number("\nEnter number :", &number);
+    add_to_end(list, number);
     break;
 
   case 'b':
-    ask_number("\nEnter number :", &number_1);
-    add_to_start(list, number_1);
+    ask_number("\nEnter number :", &number);
+    add_to_start(list, number);
     break;
 
   case 'c':
-    ask_number("\nEnter number :", &number_1);
-    ask_number("\nEnter position :", &number_2);
-    insert_at(list, number_1, number_2);
+    ask_number("\nEnter number :", &number);
+    ask_number("\nEnter position :", &position);
+    insert_at(list, number, position);
     break;
 
   case 'd':
-    ask_number("\nEnter number :", &number_1);
-    add_unique(list, number_1);
+    ask_number("\nEnter number :", &number);
+    add_unique(list, number);
     break;
 
   case 'e':
     remove_from_start(list);
     break;
-    
+
+  case 'f':
+    remove_from_end(list);
+    break;
+
+  case 'g':
+    ask_number("\nEnter position :", &position);
+    remove_at(list, position);
+    break;
+
   case 'l':
     print_empty_line;
     display(list);

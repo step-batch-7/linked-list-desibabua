@@ -91,8 +91,7 @@ Status add_unique(List_ptr list, int value){
   Node_ptr node;
   if (!is_value_in_list(list, value))
   {
-    add_to_end(list, value);
-    status = Success;
+    status = add_to_end(list, value);
   }
   return status;
 }
@@ -102,12 +101,73 @@ Status remove_from_start(List_ptr list) {
   if(list->head != NULL)
   {
     Node_ptr node_to_remove = list->head;
-    list->head = list->head->next;
-    clear_node(node_to_remove);
-    
     list->count--;
+    list->head = list->count == 0 ? NULL : list->head->next;
+
+    clear_node(node_to_remove);
     status = Success;
   }
+  return status;
+}
+
+Status remove_from_end(List_ptr list) {
+  Status status = Failure;
+  int count = 1;
+  Node_ptr p_walk = list->head;
+  while(p_walk != NULL)
+  {
+    if(list->count == 1){
+      status = remove_from_start(list);
+      break;
+    }
+
+    if(count == (list->count-1))
+    {
+      Node_ptr node_to_remove = p_walk->next;
+      p_walk->next = NULL;
+      list->last = p_walk;
+      list->count--;
+
+      clear_node(node_to_remove);
+      status = Success;
+    }
+    p_walk = p_walk->next;
+    count++;
+  }
+
+  return status;
+}
+
+Status remove_at(List_ptr list, int position){
+  Status status = Failure;
+  int count = 0;
+  Node_ptr p_walk = list->head;
+
+  while (p_walk != NULL)
+  {
+    if(position == 0){
+      status = remove_from_start(list);
+      break;
+    }
+    
+    if(position == (list->count-1)){
+      status = remove_from_end(list);
+      break;
+    }
+
+    if(count == position-1){
+      Node_ptr node_to_remove = p_walk->next;
+      p_walk->next = node_to_remove->next;
+      list->count--;
+
+      clear_node(node_to_remove);
+      status = Success;
+      break;
+    }
+    p_walk = p_walk->next;
+    count++;
+  }
+
   return status;
 }
 
