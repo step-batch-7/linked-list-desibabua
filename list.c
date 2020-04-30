@@ -171,6 +171,36 @@ Status remove_at(List_ptr list, int position){
   return status;
 }
 
+Status remove_first_occurrence(List_ptr list, int value){
+  Status status = Failure;
+  Node_ptr p_walk = list->head;
+  int position = 0;
+
+  while (p_walk != NULL)
+  {
+    if(p_walk->value == value)
+    {
+      status = remove_at(list, position);
+      break;
+    }
+    p_walk = p_walk->next;
+    position++;
+  }
+
+  return status;
+}
+
+Status remove_all_occurrences(List_ptr list, int value){
+  Status status = Failure;
+
+  while (is_value_in_list(list,value))
+  {
+    status = remove_first_occurrence(list, value);
+  }
+
+  return status;
+}
+
 void display(List_ptr list) {
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)

@@ -77,6 +77,16 @@ void perform_instruction(List_ptr list,char instruction)
     remove_at(list, position);
     break;
 
+  case 'h':
+    ask_number("\nEnter number :", &number);
+    remove_first_occurrence(list, number);
+    break;
+
+  case 'i':
+    ask_number("\nEnter number :", &number);
+    remove_all_occurrences(list, number);
+    break;
+
   case 'l':
     print_empty_line;
     display(list);
