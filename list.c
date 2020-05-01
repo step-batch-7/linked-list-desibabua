@@ -57,12 +57,16 @@ Status insert_at(List_ptr list, int value, int position)
 {
   Status status = Failure;
 
+  if(position < 0 || position > list->count){
+    return status;
+  }
+
   if(position == 0){
     status = add_to_start(list, value);
     return status;
   }
 
-  if(position == list->count-1){
+  if(position == list->count){
     status = add_to_end(list, value);
     return status;
   }
@@ -70,18 +74,18 @@ Status insert_at(List_ptr list, int value, int position)
   int count = 1;
   Node_ptr node = create_node(value);
   Node_ptr p_walk = list->head;
-  while (p_walk !=NULL)
+
+  while (count != position)
   {
-    if(count == position)
-    {
-      node->next = p_walk->next;
-      p_walk->next = node;
-      list->count++;
-      status = Success;
-    }
     p_walk = p_walk->next;
     count++;
   }
+
+  node->next = p_walk->next;
+  p_walk->next = node;
+  list->count++;
+  
+  status = Success;
   return status;
 }
 

@@ -5,7 +5,8 @@
 #define print_empty_line printf("\n")
 
 void print_status(Status status){
-  if(status){
+  if(status)
+  {
     print("success");
   } else
   {
@@ -29,12 +30,12 @@ void print_main_menu(void)
   print("(k) check if a number exists in the list");
   print("(l) display the list of numbers");
   print("(m) exit");
+  print_empty_line;
 }
 
 void ask_instruction(char *instruction)
 {
   char temp;
-  print_empty_line;
   print("Please enter the alphabet of the operation you would like to perform");
   scanf("%c", instruction);
   scanf("%c", &temp); //for clearing the buffer value of "\n"
@@ -114,7 +115,12 @@ void perform_instruction(List_ptr list,char instruction)
     display(list);
     status = Success;
     break;
+
+  case 'm':
+    status = Success;
+    break;
   }
+
   print_status(status);
 }
 
