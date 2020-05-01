@@ -4,7 +4,7 @@
 #define print(string) printf("%s\n",string)
 #define print_empty_line printf("\n")
 
-void print_status(Status status){
+void print_status(Status status) {
   if(status)
   {
     print("success");
@@ -15,8 +15,7 @@ void print_status(Status status){
   print_empty_line;
 }
 
-void print_main_menu(void)
-{
+void print_main_menu(void) {
   print("(a) add a number to the end of the list");
   print("(b) add a number to the start of the list");
   print("(c) insert a number at a given position in the list");
@@ -33,24 +32,21 @@ void print_main_menu(void)
   print_empty_line;
 }
 
-void ask_instruction(char *instruction)
-{
+void ask_instruction(char *instruction) {
   char temp;
   print("Please enter the alphabet of the operation you would like to perform");
   scanf("%c", instruction);
   scanf("%c", &temp); //for clearing the buffer value of "\n"
 }
 
-void ask_number(char *question,int *number)
-{
+void ask_number(char *question,int *number) {
   char temp;
   print(question);
   scanf("%d", number);
   scanf("%c", &temp); //for clearing the buffer value of "\n"
 }
 
-void perform_instruction(List_ptr list,char instruction)
-{
+void perform_instruction(List_ptr list,char instruction) {
   int number;
   int position;
   Status status = Failure;
@@ -124,13 +120,11 @@ void perform_instruction(List_ptr list,char instruction)
   print_status(status);
 }
 
-int main(void)
-{
+int main(void) {
   char instruction;
   List_ptr list = create_list();
   
-  do
-  {
+  do {
     print_main_menu();
     ask_instruction(&instruction);
     perform_instruction(list, instruction);
