@@ -136,5 +136,6 @@ int main(void)
     perform_instruction(list, instruction);
   } while (instruction != 'm');
 
+  destroy_list(list);
   return 0;
 }
