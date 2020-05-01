@@ -254,6 +254,7 @@ void destroy_list(List_ptr list)
 {
   clear_list(list);
   free(list);
+  list = NULL;
 }
 
 void display(List_ptr list) 
