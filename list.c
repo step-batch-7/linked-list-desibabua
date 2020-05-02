@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include "list.h"
 
-Node_ptr create_node(int value) {
+Node_ptr create_node(int value) 
+{
   Node_ptr node = malloc(sizeof(Node));
   node->value = value;
   node->next = NULL;
   return node;
 }
 
-List_ptr create_list(void) {
+List_ptr create_list(void) 
+{
   List_ptr list = malloc(sizeof(List));
   list->head = NULL;
   list->last = NULL;
@@ -17,13 +19,17 @@ List_ptr create_list(void) {
   return list;
 }
 
-Status add_to_end(List_ptr list, int value) {
+Status add_to_end(List_ptr list, int value) 
+{
   Node_ptr node = create_node(value);
-  if (list->head == NULL) {
-    list->head = node;
-  } else {
-    list->last->next = node;
+  Node_ptr *ptr_to_set = &list->head;
+
+  if (list->head != NULL) 
+  {
+    ptr_to_set = &list->last->next;
   }
+
+  *ptr_to_set = node;
   list->last = node;
   list->count++;
   return Success;
@@ -31,9 +37,12 @@ Status add_to_end(List_ptr list, int value) {
 
 Status add_to_start(List_ptr list, int value) {
   Node_ptr node = create_node(value);
-  if(list->head == NULL) {
+  if (list->head == NULL)
+  {
     list->last = node;
-  } else {
+  }
+  else
+  {
     node->next = list->head;
   }
   list->head = node;
