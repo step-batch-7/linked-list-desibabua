@@ -82,38 +82,14 @@ Status add_unique(List_ptr list, int value) {
   return Failure;
 }
 
-Status remove_from_start(List_ptr list) {
-
-  if(list->head != NULL) {
-    Node_ptr node_to_remove = list->head;
-    list->count--;
-    list->head = list->count == 0 ? NULL : list->head->next;
-
-    free(node_to_remove);
-    return Success;
-  }
-  return Failure;
+Status remove_from_start(List_ptr list) 
+{
+  return remove_at(list, 0);
 }
 
-Status remove_from_end(List_ptr list) {
-  if(list->count <= 1) {
-    return remove_from_start(list);
-  }
-
-  int count = 1;
-  Node_ptr p_walk = list->head;
-  while(count != (list->count-1)) {
-    p_walk = p_walk->next;
-    count++;
-  }
-
-  Node_ptr node_to_remove = p_walk->next;
-  p_walk->next = NULL;
-  list->last = p_walk;
-  list->count--;
-
-  free(node_to_remove);
-  return Success;
+Status remove_from_end(List_ptr list) 
+{
+  return remove_at(list, list->count - 1);
 }
 
 Status remove_at(List_ptr list, int position) 
@@ -135,7 +111,7 @@ Status remove_at(List_ptr list, int position)
 
   Node_ptr node_to_remove = node_ptrs.current;
   Node_ptr *ptr_to_set = &node_ptrs.prev->next;
-  
+
   if (node_ptrs.prev == NULL)
   {
     ptr_to_set = &list->head;
