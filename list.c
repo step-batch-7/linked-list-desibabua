@@ -21,33 +21,12 @@ List_ptr create_list(void)
 
 Status add_to_end(List_ptr list, int value) 
 {
-  Node_ptr node = create_node(value);
-  Node_ptr *ptr_to_set = &list->head;
-
-  if (list->head != NULL) 
-  {
-    ptr_to_set = &list->last->next;
-  }
-
-  *ptr_to_set = node;
-  list->last = node;
-  list->count++;
-  return Success;
+  return insert_at(list, value, list->count);
 }
 
 Status add_to_start(List_ptr list, int value) 
 {
-  if (list->head == NULL)
-  {
-    return add_to_end(list, value);
-  }
-
-  Node_ptr node = create_node(value);
-  node->next = list->head;
-  list->head = node;
-  list->count++;
-  
-  return Success;
+  return insert_at(list, value, 0);
 }
 
 Status insert_at(List_ptr list, int value, int position) 
