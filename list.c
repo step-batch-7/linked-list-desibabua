@@ -35,7 +35,8 @@ Status add_to_end(List_ptr list, int value)
   return Success;
 }
 
-Status add_to_start(List_ptr list, int value) {
+Status add_to_start(List_ptr list, int value) 
+{
   if (list->head == NULL)
   {
     return add_to_end(list, value);
@@ -51,27 +52,34 @@ Status add_to_start(List_ptr list, int value) {
 
 Status insert_at(List_ptr list, int value, int position) 
 {
-  if(position < 0 || position > list->count){
+  if(position < 0 || position > list->count)
+  {
     return Failure;
   }
-  if(position == 0) {
-    return add_to_start(list, value);
-  }
-  if(position == list->count) {
-    return add_to_end(list, value);
+
+  Prev_Current_Pair nodes_ptrs;
+  nodes_ptrs.prev = NULL;
+  nodes_ptrs.current = list->head;
+
+  while(position != 0)
+  {
+    nodes_ptrs.prev = nodes_ptrs.current;
+    nodes_ptrs.current = nodes_ptrs.current->next;
+    position--;
   }
 
-  int count = 1;
   Node_ptr node = create_node(value);
-  Node_ptr p_walk = list->head;
-  while (count != position) {
-    p_walk = p_walk->next;
-    count++;
-  }
-  node->next = p_walk->next;
-  p_walk->next = node;
-  list->count++;
+  Node_ptr *ptr_to_set = &nodes_ptrs.prev->next;
 
+  if (nodes_ptrs.prev == NULL)
+  {
+    ptr_to_set = &list->head;
+    list->last = node;
+  }
+
+  *ptr_to_set = node;
+  node->next = nodes_ptrs.current;
+  list->count++;
   return Success;
 }
 
