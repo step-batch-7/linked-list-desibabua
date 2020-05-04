@@ -36,9 +36,15 @@ Status insert_at(List_ptr list, int value, int position)
     return Failure;
   }
 
+  Node_ptr node = create_node(value);
   Prev_Current_Pair nodes_ptrs;
   nodes_ptrs.prev = NULL;
   nodes_ptrs.current = list->head;
+
+  if (position == 0 || position == list->count)
+  {
+    list->last = node;
+  }
 
   while(position != 0)
   {
@@ -47,13 +53,10 @@ Status insert_at(List_ptr list, int value, int position)
     position--;
   }
 
-  Node_ptr node = create_node(value);
-  Node_ptr *ptr_to_set = &nodes_ptrs.prev->next;
-
-  if (nodes_ptrs.prev == NULL)
+  Node_ptr *ptr_to_set = &list->head;
+  if (nodes_ptrs.prev != NULL)
   {
-    ptr_to_set = &list->head;
-    list->last = node;
+    ptr_to_set = &nodes_ptrs.prev->next;
   }
 
   *ptr_to_set = node;
@@ -110,11 +113,11 @@ Status remove_at(List_ptr list, int position)
   }
 
   Node_ptr node_to_remove = node_ptrs.current;
-  Node_ptr *ptr_to_set = &node_ptrs.prev->next;
+  Node_ptr *ptr_to_set = &list->head;
 
-  if (node_ptrs.prev == NULL)
+  if (node_ptrs.prev != NULL)
   {
-    ptr_to_set = &list->head;
+    ptr_to_set = &node_ptrs.prev->next;
   }
 
   *ptr_to_set = node_ptrs.current->next;
