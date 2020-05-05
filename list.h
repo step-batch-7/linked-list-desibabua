@@ -31,6 +31,7 @@ typedef struct
 typedef List *List_ptr;
 
 List_ptr create_list(void);
+Node_ptr create_node(int);
 
 Status add_to_end(List_ptr, int value);
 Status add_to_start(List_ptr, int value);
