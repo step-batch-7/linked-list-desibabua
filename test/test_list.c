@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../list.h"
 #include "test_list.h"
 
@@ -25,8 +26,20 @@ void assert_pointer(int *prev_test, void *ptr1,void *ptr2)
 void test_create_node(void)
 {
   Node_ptr node = create_node(4);
-  int result;
+  int result = 1;
   assert_num(&result, node->value, 4);
   assert_pointer(&result, node->next, NULL);
-  print_message(result, "should return a node having value and a pointer to null");
+  print_message(result, "should create a node having value and a next pointing to null");
+  free(node);
+}
+
+void test_create_list(void)
+{
+  List_ptr list = create_list();
+  int result = 1;
+  assert_pointer(&result, list->head, NULL);
+  assert_pointer(&result, list->last, NULL);
+  assert_num(&result, list->count, 0);
+  print_message(result, "should create a empty list having head and last pointing to null and count as 0");
+  destroy_list(list);
 }
