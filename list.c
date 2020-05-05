@@ -41,7 +41,7 @@ Status insert_at(List_ptr list, int value, int position)
   nodes_ptrs.prev = NULL;
   nodes_ptrs.current = list->head;
 
-  if (position == 0 || position == list->count)
+  if (list->count == 0 || list->count == position)
   {
     list->last = node;
   }
