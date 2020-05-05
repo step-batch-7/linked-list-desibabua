@@ -121,6 +121,11 @@ Status remove_at(List_ptr list, int position)
   }
 
   *ptr_to_set = node_ptrs.current->next;
+
+  if(node_ptrs.current->next==NULL){
+    list->last = node_ptrs.prev;
+  }
+  
   list->count--;
   free(node_to_remove);
   return Success;
