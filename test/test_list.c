@@ -3,43 +3,39 @@
 #include "../list.h"
 #include "test_list.h"
 
-void print_message(int flag,char *message)
+void assert_num(int num1,int num2, char *message)
 {
-  char symbol = 'F';
-  if (flag)
-  {
-    symbol = 'P';
-  }
-  printf("%c  %s\n", symbol, message);
+  char symbol = num1 == num2 ? 'P' : 'F';
+  printf("  %c  %s\n", symbol, message);
 }
 
-void assert_num(int *prev_test, int num1,int num2)
+void assert_pointer(void *ptr1,void *ptr2, char *message)
 {
-  *prev_test = *prev_test && (num1 == num2);
-}
-
-void assert_pointer(int *prev_test, void *ptr1,void *ptr2)
-{
-  *prev_test = *prev_test && (ptr1 == ptr2);
+  char symbol = ptr1 == ptr2 ? 'P' : 'F';
+  printf("  %c  %s\n", symbol, message);
 }
 
 void test_create_node(void)
 {
+  printf("# create_node\n");
+
   Node_ptr node = create_node(4);
-  int result = 1;
-  assert_num(&result, node->value, 4);
-  assert_pointer(&result, node->next, NULL);
-  print_message(result, "should create a node having value and a next pointing to null");
+  assert_num(node->value, 4, "  should give the right value");
+  assert_pointer(node->next, NULL, "  next should point to null");
+
   free(node);
+  print_empty_line;
 }
 
 void test_create_list(void)
 {
+  printf("# create_list\n");
+
   List_ptr list = create_list();
-  int result = 1;
-  assert_pointer(&result, list->head, NULL);
-  assert_pointer(&result, list->last, NULL);
-  assert_num(&result, list->count, 0);
-  print_message(result, "should create a empty list having head and last pointing to null and count as 0");
+  assert_pointer(list->head, NULL, "  head should point to null");
+  assert_pointer(list->last, NULL, "  last should point to null");
+  assert_num(list->count, 0, "  count should be zero");
+
   destroy_list(list);
+  print_empty_line;
 }
