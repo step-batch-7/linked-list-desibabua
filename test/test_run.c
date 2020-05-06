@@ -9,6 +9,8 @@ void run_all_test(void)
   test_insert_at();
   test_is_in_list();
   test_add_unique();
+  test_remove_from_start();
+  test_remove_from_end();
 }
 
 int main()

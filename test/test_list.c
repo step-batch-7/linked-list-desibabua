@@ -218,3 +218,79 @@ void test_add_unique(void)
   print_empty_line;
 
 }
+
+void test_remove_from_start(void)
+{
+  describe("remove_from_start");
+
+  List_ptr list = create_list();
+  Status status;
+
+  it("should return failure for an empty list");
+
+  status = remove_from_start(list);
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  it("should empty a list having one value");
+
+  add_to_start(list, 2);
+  status = remove_from_start(list);
+  assert_is_eq_ptr(list->head, NULL, "head should point to null");
+  assert_is_eq_ptr(list->last, NULL, "last should point to null");
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+  it("should remove a number from start in list having many value");
+
+  add_to_start(list, 2);
+  add_to_start(list, 4);
+  status = remove_from_start(list);
+
+  assert_num(list->head->value, 4, "head's value should be equal to next's value");
+  assert_is_eq_ptr(list->last, list->head, "head should point to next");
+  assert_num(list->count, 1, "count should be decrease by 1");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+}
+
+void test_remove_from_end(void)
+{
+  describe("remove_from_start");
+
+  List_ptr list = create_list();
+  Status status;
+
+  it("should return failure for an empty list");
+
+  status = remove_from_end(list);
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  it("should empty a list having one value");
+
+  add_to_end(list, 2);
+  status = remove_from_end(list);
+  assert_is_eq_ptr(list->head, NULL, "head should point to null");
+  assert_is_eq_ptr(list->last, NULL, "last should point to null");
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+  it("should remove a number from end in list having many value");
+
+  add_to_end(list, 2);
+  add_to_end(list, 4);
+  status = remove_from_end(list);
+
+  assert_num(list->head->value, 2, "head's value should be equal to next's value");
+  assert_is_eq_ptr(list->last, list->head, "head should point to next");
+  assert_num(list->count, 1, "count should be decrease by 1");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+  
+}
