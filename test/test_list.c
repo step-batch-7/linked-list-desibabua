@@ -262,7 +262,7 @@ void test_remove_from_start(void)
 
 void test_remove_from_end(void)
 {
-  describe("remove_from_start");
+  describe("remove_from_end");
 
   List_ptr list = create_list();
   Status status;
