@@ -190,6 +190,7 @@ void test_is_in_list(void)
   assert_num(status, Success, "should return success for num which are in list");
   print_empty_line;
 
+  destroy_list(list);
 }
 
 void test_add_unique(void)
@@ -217,6 +218,7 @@ void test_add_unique(void)
   assert_num(status, Success, "should return success");
   print_empty_line;
 
+  destroy_list(list);
 }
 
 void test_remove_from_start(void)
@@ -255,6 +257,7 @@ void test_remove_from_start(void)
   assert_num(status, Success, "should return success");
   print_empty_line;
 
+  destroy_list(list);
 }
 
 void test_remove_from_end(void)
@@ -293,4 +296,59 @@ void test_remove_from_end(void)
   assert_num(status, Success, "should return success");
   print_empty_line;
   
+  destroy_list(list);
+}
+
+void test_remove_at(void)
+{
+  describe("remove_at");
+  List_ptr list = create_list();
+  Status status;
+
+  it("should return failure if asked to remove from empty list");
+
+  status = remove_at(list, 0);
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  add_to_end(list, 0);
+
+  it("should return failure if asked to remove a negative position from list");
+
+  status = remove_at(list, -1);
+  assert_num(list->count, 1, "count should be zero");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  it("should return failure if asked to remove a position from list which is not there");
+
+  status = remove_at(list, 1);
+  assert_num(list->count, 1, "count should be zero");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  it("should empty a list having length one");
+
+  status = remove_at(list, 0);
+  assert_is_eq_ptr(list->head, NULL, "head should point to null");
+  assert_is_eq_ptr(list->last, NULL, "last should point to null");
+  assert_num(list->count, 0, "count should be zero");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+  it("should remove a number between two numbers");
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  status = remove_at(list, 1);
+
+  assert_num(list->head->value,1, "number before removable one should not change");
+  assert_num(list->head->next->value, 3, "number after removable one should not change");
+  assert_num(list->count, 2, "count should reduce by one");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+  destroy_list(list);
 }
