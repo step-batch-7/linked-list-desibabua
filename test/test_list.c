@@ -181,12 +181,40 @@ void test_is_in_list(void)
   add_to_end(list, 3);
   Status status;
 
-  it("should return is number in list or not");
-  
+  it("should return is_number in list or not");
+
   status = is_in_list(list, 0);
   assert_num(status, Failure, "should return failure for num which are not in list");
 
   status = is_in_list(list, 2);
   assert_num(status, Success, "should return success for num which are in list");
+  print_empty_line;
+
+}
+
+void test_add_unique(void)
+{
+  describe("add_unique");
+
+  List_ptr list = create_list();
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  Status status;
+
+  it("should not add number when same value is in list");
+
+  status = add_unique(list, 2);
+  assert_num(list->count, 2, "count should be same");
+  assert_num(status, Failure, "should return failure");
+  print_empty_line;
+
+  it("should add number when same value is not in list and at last");
+
+  status = add_unique(list, 3);
+  assert_num(list->head->value, 1, "should not change head");
+  assert_num(list->last->value, 3, "last should point to new node");
+  assert_num(list->count, 3, "count should be same");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
 
 }

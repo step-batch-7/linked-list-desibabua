@@ -8,6 +8,7 @@ void run_all_test(void)
   test_add_to_start();
   test_insert_at();
   test_is_in_list();
+  test_add_unique();
 }
 
 int main()
