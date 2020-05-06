@@ -15,8 +15,6 @@ void run_all_test(void)
   test_remove_first_occurrence();
   test_remove_all_occurrences();
   test_clear_list();
-  test_destroy_list();
-
 }
 
 int main()
