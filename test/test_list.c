@@ -67,7 +67,7 @@ void test_add_to_start(void)
   List_ptr list = create_list();
   add_to_start(list, 2);
 
-  it("should add a number to a empty list at start");
+  it("should add a number to an empty list at start");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
   assert_is_eq_ptr(list->head, list->last, "head and last should point to same node");
   assert_num(list->head->value, 2, "value of node should be correct");
@@ -78,11 +78,86 @@ void test_add_to_start(void)
 
   it("should add a number to a list of length 1 at start");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
-  assert_is_not_eq_ptr(list->head, list->last, "head and last should point to same");
+  assert_is_not_eq_ptr(list->head, list->last, "head and last should not point to same");
   assert_is_eq_ptr(list->last, list->head->next, "last should point to correct node");
   assert_num(list->head->value, 4, "value of first node should be correct");
   assert_num(list->head->next->value, 2, "value of second node should be correct");
   assert_num(list->count, 2, "count should be two");
+  assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  print_empty_line;
+
+  destroy_list(list);
+}
+
+void test_insert_at(void)
+{
+  describe("insert_at");
+
+  List_ptr list = create_list();
+  insert_at(list, 2,0);
+
+  it("should add a number to an empty list");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_is_eq_ptr(list->head, list->last, "head and last should point to same node");
+  assert_num(list->head->value, 2, "value of node should be correct");
+  assert_num(list->count, 1, "count should be one");
+  print_empty_line;
+
+  insert_at(list, 4,1);
+
+  it("should add a number to a list when asked to add in last position");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_is_not_eq_ptr(list->head, list->last, "head and last should not point to same");
+  assert_is_eq_ptr(list->last, list->head->next, "last should point to correct node");
+  assert_num(list->head->value, 2, "value of first node should be correct");
+  assert_num(list->head->next->value, 4, "value of second node should be correct");
+  assert_num(list->count, 2, "count should be two");
+  assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  print_empty_line;
+
+  insert_at(list, 10,0);
+
+  it("should add a number to a list when asked to add in first position");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_is_not_eq_ptr(list->head, list->last, "head and last should not point to same");
+  assert_is_eq_ptr(list->last, list->head->next->next, "last should point to correct node");
+  assert_num(list->head->value, 10, "value of first node should be correct");
+  assert_num(list->head->next->value, 2, "value of node between first and last should not change");
+  assert_num(list->head->next->next->value, 4, "value of last node should not change");
+  assert_num(list->count, 3, "count should be three");
+  assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  print_empty_line;
+
+  insert_at(list, 5,1);
+
+  it("should add a number to a list when asked to add in middle");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_is_not_eq_ptr(list->head, list->last, "head and last should not point to same");
+  assert_is_eq_ptr(list->last, list->head->next->next->next, "last should point to correct node");
+  assert_num(list->head->value, 10, "value of first node should not change");
+  assert_num(list->head->next->value, 5, "value of node inserted should be correct");
+  assert_num(list->head->next->next->value, 2, "value of node after inserted node should be correct");
+  assert_num(list->count, 4, "count should be three");
+  assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  print_empty_line;
+
+  insert_at(list, 5,-1);
+
+  it("should not add a number to a list when asked to add position less than zero");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_num(list->head->value, 10, "value of first node should not change");
+  assert_num(list->last->value, 4, "value of last node should not change");
+  assert_num(list->count, 4, "count should be three");
+  assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  print_empty_line;
+
+  insert_at(list, 5,5);
+
+  it("should not add a number to a list when asked to add position greater than count");
+  assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
+  assert_num(list->head->value, 10, "value of first node should not change");
+  assert_num(list->last->value, 4, "value of last node should not change");
+  assert_num(list->count, 4, "count should be three");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
   print_empty_line;
 
