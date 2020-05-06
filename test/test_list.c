@@ -411,3 +411,21 @@ void test_remove_all_occurrences(void)
 
   destroy_list(list);
 }
+
+void test_clear_list(void)
+{
+  describe("clear_list");
+  List_ptr list = create_list();
+  Status status;
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+
+  it("should clear the list");
+  clear_list(list);
+  assert_num(list->count, 0, "count should be reduced to zero");
+  assert_is_eq_ptr(list->head, NULL, "head should be point to null");
+  assert_is_eq_ptr(list->last, NULL, "last should be point to null");
+
+  destroy_list(list);
+}
