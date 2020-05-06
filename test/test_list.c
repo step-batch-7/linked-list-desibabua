@@ -382,3 +382,32 @@ void test_remove_first_occurrence(void)
 
   destroy_list(list);
 }
+
+void test_remove_all_occurrences(void)
+{
+  describe("remove_all_occurrence");
+  List_ptr list = create_list();
+  Status status;
+
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  add_to_end(list, 2);
+
+  it("should not remove anything if number is not there");
+  status = remove_all_occurrences(list, 4);
+  assert_num(status, Failure, "should return failure");
+  assert_num(list->count, 4, "count should not change");
+  print_empty_line;
+
+  it("should remove all occurrence of given number");
+  status = remove_all_occurrences(list, 2);
+
+  assert_num(list->head->value, 1, "should not remove other elements");
+  assert_num(list->head->next->value, 3, "should change next pointer to the removed number");
+  assert_num(list->count, 2, "count should reduce by 1");
+  assert_num(status, Success, "should return success");
+  print_empty_line;
+
+  destroy_list(list);
+}

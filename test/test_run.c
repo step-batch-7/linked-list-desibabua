@@ -13,6 +13,7 @@ void run_all_test(void)
   test_remove_from_end();
   test_remove_at();
   test_remove_first_occurrence();
+  test_remove_all_occurrences();
 
 }
 
