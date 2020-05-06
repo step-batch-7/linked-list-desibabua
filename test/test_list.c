@@ -170,3 +170,23 @@ void test_insert_at(void)
 
   destroy_list(list);
 }
+
+void test_is_in_list(void)
+{
+  describe("is_in_list");
+
+  List_ptr list = create_list();
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  Status status;
+
+  it("should return is number in list or not");
+  
+  status = is_in_list(list, 0);
+  assert_num(status, Failure, "should return failure for num which are not in list");
+
+  status = is_in_list(list, 2);
+  assert_num(status, Success, "should return success for num which are in list");
+
+}
