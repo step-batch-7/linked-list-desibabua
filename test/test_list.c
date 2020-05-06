@@ -94,16 +94,18 @@ void test_insert_at(void)
   describe("insert_at");
 
   List_ptr list = create_list();
-  insert_at(list, 2,0);
+  Status status;
+  status = insert_at(list, 2, 0);
 
   it("should add a number to an empty list");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
   assert_is_eq_ptr(list->head, list->last, "head and last should point to same node");
   assert_num(list->head->value, 2, "value of node should be correct");
   assert_num(list->count, 1, "count should be one");
+  assert_num(status, Success, "status should be success");
   print_empty_line;
 
-  insert_at(list, 4,1);
+  status = insert_at(list, 4,1);
 
   it("should add a number to a list when asked to add in last position");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
@@ -113,9 +115,10 @@ void test_insert_at(void)
   assert_num(list->head->next->value, 4, "value of second node should be correct");
   assert_num(list->count, 2, "count should be two");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  assert_num(status, Success, "status should be success");
   print_empty_line;
 
-  insert_at(list, 10,0);
+  status = insert_at(list, 10,0);
 
   it("should add a number to a list when asked to add in first position");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
@@ -126,9 +129,10 @@ void test_insert_at(void)
   assert_num(list->head->next->next->value, 4, "value of last node should not change");
   assert_num(list->count, 3, "count should be three");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  assert_num(status, Success, "status should be success");
   print_empty_line;
 
-  insert_at(list, 5,1);
+  status = insert_at(list, 5,1);
 
   it("should add a number to a list when asked to add in middle");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
@@ -139,9 +143,10 @@ void test_insert_at(void)
   assert_num(list->head->next->next->value, 2, "value of node after inserted node should be correct");
   assert_num(list->count, 4, "count should be three");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  assert_num(status, Success, "status should be success");
   print_empty_line;
 
-  insert_at(list, 5,-1);
+  status = insert_at(list, 5,-1);
 
   it("should not add a number to a list when asked to add position less than zero");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
@@ -149,9 +154,10 @@ void test_insert_at(void)
   assert_num(list->last->value, 4, "value of last node should not change");
   assert_num(list->count, 4, "count should be three");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  assert_num(status, Failure, "status should be failure");
   print_empty_line;
 
-  insert_at(list, 5,5);
+  status = insert_at(list, 5,5);
 
   it("should not add a number to a list when asked to add position greater than count");
   assert_is_not_eq_ptr(list->head, NULL, "head should not point to null");
@@ -159,6 +165,7 @@ void test_insert_at(void)
   assert_num(list->last->value, 4, "value of last node should not change");
   assert_num(list->count, 4, "count should be three");
   assert_is_eq_ptr(list->last->next, NULL, "last's next should point to null");
+  assert_num(status, Failure, "status should be failure");
   print_empty_line;
 
   destroy_list(list);
